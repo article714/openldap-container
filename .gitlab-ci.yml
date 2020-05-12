@@ -31,8 +31,9 @@ test_image:
   tags:
     - docker
   script:
-    - odoo --version
-    - echo "TODO =>  add some more tests "
+    # wait for Ldap to be fully fit
+    - sleep 10
+    - python3 -m tests.runtests
 
 #------------------------------------------
 # Publish
