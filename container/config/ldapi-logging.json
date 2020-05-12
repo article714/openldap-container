@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "disable_existing_loggers": true,
+  "formatters": {
+    "default": {
+      "format": "%(levelname)s %(asctime)s %(module)s %(process)d -- %(message)s"
+    },
+    "access": {
+      "format": "%(asctime)s %(process)d %(thread)d -- %(message)s"
+    }
+  },
+  "handlers": {
+    "syslog": {
+      "level": "INFO",
+      "class": "logging.handlers.SysLogHandler",
+      "formatter": "default",
+      "address": "/dev/log",
+      "facility": "daemon"
+    },
+    "syslog-access": {
+      "level": "INFO",
+      "class": "logging.handlers.SysLogHandler",
+      "formatter": "access",
+      "address": "/dev/log",
+      "facility": "local6"
+    },
+    "syslog-error": {
+      "level": "INFO",
+      "class": "logging.handlers.SysLogHandler",
+      "formatter": "default",
+      "address": "/dev/log",
+      "facility": "local7"
+    }
+  },
+  "root": {
+    "level": "WARNING",
+    "handlers": ["syslog"],
+    "propagate": "yes"
+  },
+  "loggers": {
+    "main": {
+      "level": "WARNING",
+      "handlers": ["syslog"],
+      "propagate": "yes"
+    },
+    "access": {
+      "level": "INFO",
+      "handlers": ["syslog-access"],
+      "propagate": "yes"
+    },
+    "error": {
+      "level": "DEBUG",
+      "handlers": ["syslog-error"],
+      "propagate": "yes"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+#!/bin/sh
+exec 2>&1
+
+# Directories and init
+mkdir -p /etc/rsyslog
+chown root.root /var/log
+touch /var/log/syslog
+touch /var/log/cron.log
+touch /var/log/daemon.log
+touch /var/log/ldapi-access.log
+touch /var/log/ldapi-error.log
+chown syslog.syslog /var/log/syslog
+chown syslog.syslog /var/log/daemon.log /var/log/ldapi-access.log /var/log/ldapi-error.log /var/log/cron.log
+if [ ! -d /var/run/rsyslog ]; then
+    mkdir -p /var/run/rsyslog
+    [ -z "syslog" ] || chown -R "syslog" /var/run/rsyslog
+    [ -z "syslog" ] || chgrp -R "syslog" /var/run/rsyslog
+fi
+umask 077
+# Run daeomon
+exec /usr/sbin/rsyslogd -n -f /etc/rsyslog.conf -iNONE

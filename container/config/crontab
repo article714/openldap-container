@@ -1,0 +1,1 @@
+25 6	* * *	root	RUNLEVEL=1 /usr/sbin/logrotate /container/config/logrotate.conf

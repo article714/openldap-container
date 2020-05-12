@@ -1,0 +1,24 @@
+#!/bin/sh
+exec 2>&1
+
+# Directories and init
+if [ -d /var/lib/ldap/slapd.d ]; then
+    chown -R openldap:openldap /var/lib/ldap
+else
+    mkdir -p /var/lib/ldap/slapd.d
+    mkdir -p /var/lib/ldap/databases
+    slapadd -F /var/lib/ldap/slapd.d -n0 -l /container/data/slapd_conf_init.ldif
+    chown -R openldap:openldap /var/lib/ldap
+fi
+
+if [ ! -d /var/run/slapd ]; then
+    mkdir -p /var/run/slapd
+    [ -z "openldap" ] || chown -R "openldap" /var/run/slapd
+    [ -z "openldap" ] || chgrp -R "openldap" /var/run/slapd
+fi
+
+# prevent excessive memory usage
+ulimit -n 1024
+umask 077
+
+exec /usr/sbin/slapd -F /var/lib/ldap/slapd.d -h "ldap:/// ldapi:///" -g openldap -u openldap -l DAEMON -d 0 -n openldap

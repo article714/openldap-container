@@ -1,0 +1,13 @@
+**/.project
+**/.pydevproject
+**/.settings
+**/artifacts
+**/*.DS_Store
+**/*.pyc
+**/*.~lock*
+**/.idea
+**/.vscode
+**/gen
+**/*.log
+**/behave/config/dev.cfg
+venv/**

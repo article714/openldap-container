@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#set -x
+
+export SVDIR=/container/services/
+
+services='slapd rsyslogd ldapi cron'
+
+for srv in ${services}; do
+    /usr/bin/sv status ${srv}
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+done
+
+exit 0

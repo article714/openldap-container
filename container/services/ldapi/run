@@ -1,0 +1,7 @@
+#!/bin/sh
+exec 2>&1
+
+# Run daeomon
+chmod 640 /container/config/ldapi-*
+cd /container/ldapi
+exec python3 run.py
