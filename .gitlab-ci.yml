@@ -1,0 +1,62 @@
+stages:
+  - build
+  - test
+  - publish
+  - cleanup
+
+variables:
+  LDAP_IMAGE_VERSION: "1.0.0"
+  DOCKER_REGISTRY_HOST: "892572o0.gra5.container-registry.ovh.net"
+
+# ------------------------------------------
+# Build
+
+build_image:
+  stage: build
+  tags:
+    - dockerbuild
+  variables:
+    BUILD_OPTS: "--force-rm --no-cache"
+  script:
+    - echo "Building lease4/ldap:${LDAP_IMAGE_VERSION}"
+    - docker build ${BUILD_OPTS} -t ${DOCKER_REGISTRY_HOST}/lease4/ldap:${LDAP_IMAGE_VERSION} -t lease4/ldap:${LDAP_IMAGE_VERSION} .
+
+# ------------------------------------------
+# Tests
+
+test_image:
+  stage: test
+  image:
+    name: lease4/ldap:${LDAP_IMAGE_VERSION}
+  tags:
+    - docker
+  script:
+    - odoo --version
+    - echo "TODO =>  add some more tests "
+
+#------------------------------------------
+# Publish
+
+publish_image:
+  stage: publish
+  tags:
+    - shell
+  only:
+    refs:
+      - production
+  script:
+    - docker push ${DOCKER_REGISTRY_HOST}/lease4/ldap:${LDAP_IMAGE_VERSION}
+#------------------------------------------
+# Cleanups
+
+#simple-prune-docker:
+#  stage: cleanup
+#  tags:
+#    - shell
+#  before_script:
+#    - echo "Prune docker"
+#  script:
+#    - docker system prune -f
+#    - docker volume prune -f
+#    - docker image prune -f
+#  when: always
