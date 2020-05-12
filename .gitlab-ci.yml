@@ -28,6 +28,10 @@ test_image:
   stage: test
   image:
     name: lease4/ldap:${LDAP_IMAGE_VERSION}
+  services:
+    - name: lease4/ldap:${LDAP_IMAGE_VERSION}
+      alias: ldap-srv
+      command: ["initpwd", "bonjour"]
   tags:
     - docker
   script:
