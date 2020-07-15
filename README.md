@@ -1,3 +1,3 @@
-# leases4-ldap
+# openldap-container
 
-Image Docker utilisée pour construire le LDAP  qui sert à sécuriser les instances de l'application Lease4
+Container image to host an Openldap server and a dedicated API that can be used to administer LDAP databases

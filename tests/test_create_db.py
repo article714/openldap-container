@@ -4,7 +4,7 @@ import unittest
 import ldap
 from ldap import modlist
 
-TESTING_DB_SUFFIX = "dc=lease4,dc=net"
+TESTING_DB_SUFFIX = "dc=article714,dc=org"
 
 
 class TestCreateDb(unittest.TestCase):

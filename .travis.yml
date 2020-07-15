@@ -1,0 +1,11 @@
+language: python
+sudo: false
+cache: pip
+
+services:
+  - docker
+
+script:
+  - export BUILD_OPTS='--force-rm --no-cache'
+  - export CONTAINER_BASE_VERSION='1.0.0'
+  - docker build ${BUILD_OPTS} -t article714/openldap-container:${CONTAINER_BASE_VERSION} --build-arg CONTAINER_BASE_VERSION=${CONTAINER_BASE_VERSION} .
