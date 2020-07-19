@@ -7,5 +7,5 @@ services:
 
 script:
   - export BUILD_OPTS='--force-rm --no-cache'
-  - export CONTAINER_BASE_VERSION='1.0.0'
-  - docker build ${BUILD_OPTS} -t article714/openldap-container:${CONTAINER_BASE_VERSION} --build-arg CONTAINER_BASE_VERSION=${CONTAINER_BASE_VERSION} .
+  - export LDAP_CONTAINER_VERSION='1.0.1'
+  - docker build ${BUILD_OPTS} -t article714/openldap-container:${LDAP_CONTAINER_VERSION} --build-arg LDAP_CONTAINER_VERSION=${LDAP_CONTAINER_VERSION} .
