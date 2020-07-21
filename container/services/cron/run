@@ -1,9 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-# chown crontab
-chmod 640 /container/config/logrotate.conf
-chmod 640 /container/config/crontab
-chmod 640 /container/config/cron.d
-# Run daemon
-exec /usr/sbin/cron -f
