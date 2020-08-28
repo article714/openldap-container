@@ -12,6 +12,18 @@ update_pwd() {
 }
 
 start() {
+    if [[ ! -f "/container/config/slapd/certs/slapd.crt" && -n "${VAULT_X509_SUBJECT}" ]]; then
+        # Build self-signed Certificate
+        chown slapd.root /container/config/slapd/certs
+        cd /container/config/slapd/certs
+        if [ -n "${VAULT_X509_ALTNAMES}" ]; then
+            chpst -u openldap openssl req -newkey rsa:4096 -days 1001 -nodes -x509 -subj ${VAULT_X509_SUBJECT} -addext "subjectAltName=${VAULT_X509_ALTNAMES}" -keyout "slapd.key" -out "slapd.crt"
+        else
+            chpst -u openldap openssl req -newkey rsa:4096 -days 1001 -nodes -x509 -subj ${VAULT_X509_SUBJECT} -keyout "slapd.key" -out "slapd.crt"
+        fi
+
+    fi
+
     exec runsvdir -P /container/services
 }
 
