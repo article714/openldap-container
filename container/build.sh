@@ -12,7 +12,7 @@ export LANG=en_US.utf8
 LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -qy --no-install-recommends runit rsyslog logrotate \
     curl \
     slapd slapd-contrib \
-    python3-ldap python3-flask-restful python3-requests python3-gevent
+    python3-ldap python3-flask-restful python3-requests python3-gevent ldap-utils
 
 # Add Syslog user
 groupadd -g 110 syslog
